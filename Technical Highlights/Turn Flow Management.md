@@ -13,11 +13,9 @@ RouletteCircus의 한 턴은 단순히 플레이어가 한 번 행동하고 끝�
 [Architecture](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Document/Diagrams/Trun%20Flow%20Management%20Acrchitecture.png)
 
 ## **Implementation**
-[AccessoryComponent.cpp](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Accessory%20System/AccessoryComponent.cpp)
+[PlayerGameMode.cpp](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Turn%20Flow%20Management/PlayerGameMode.cpp)
 
-[AccessoryComponent.h](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Accessory%20System/AccessoryComponent.h)
-
-[AccessoryTypes.h](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Accessory%20System/AccessoryTypes.h)
+[PlayerTurnController.cpp]([https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Accessory%20System/AccessoryComponent.h](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Turn%20Flow%20Management/PlayerTurnController.cpp))
 
 ## **Result**
 
