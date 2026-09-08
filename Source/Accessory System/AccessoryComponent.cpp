@@ -8,21 +8,13 @@
 #include "Characters/PlayerCharacter.h"
 #include "GameFramework/Character.h"
 
-UAccessoryComponent::UAccessoryComponent()
-{
-	PrimaryComponentTick.bCanEverTick = false;
-}
-
-void UAccessoryComponent::BeginPlay()
-{
-	Super::BeginPlay();
-}
-
+//선택한 장신구의 메쉬 컴포넌트를 생성하여 장착
 void UAccessoryComponent::Equip(FName AccessoryRow)
 {
     if (!AccessoryTable)
         return;
 
+	//DataTable에서 이름(FName)으로 장신구 Row 탐색
     const FAccessoryData* Data =
         AccessoryTable->FindRow<FAccessoryData>(AccessoryRow, TEXT(""));
 
@@ -31,6 +23,7 @@ void UAccessoryComponent::Equip(FName AccessoryRow)
 
     Unequip(Data->Slot);
 
+	//장신구 메쉬 컴포넌트 생성
     UStaticMeshComponent* MeshComponent = CreateAccessory(*Data);
 
     FEquippedAccessory Equipped;
@@ -40,6 +33,7 @@ void UAccessoryComponent::Equip(FName AccessoryRow)
     EquippedAccessories.Add(Data->Slot, Equipped);
 }
 
+//지정한 슬롯에 장착된 장신구의 메쉬 컴포넌트를 제거하여 장착 해제
 void UAccessoryComponent::Unequip(EAccessorySlot Slot)
 {
     if (FEquippedAccessory* Equipped = EquippedAccessories.Find(Slot))
@@ -53,6 +47,7 @@ void UAccessoryComponent::Unequip(EAccessorySlot Slot)
     }
 }
 
+//장신구 데이터를 받아 메쉬 컴포넌트를 생성하는 함수
 UStaticMeshComponent* UAccessoryComponent::CreateAccessory(const FAccessoryData& Data)
 {
     USkeletalMeshComponent* CharacterMesh = GetCharacterMesh();
@@ -62,6 +57,7 @@ UStaticMeshComponent* UAccessoryComponent::CreateAccessory(const FAccessoryData&
 
     UStaticMeshComponent* MeshComponent = NewObject<UStaticMeshComponent>(GetOwner());
 
+	//장신구 데이터(Slot, Mesh, Loc, Roc 등)를 생성한 메쉬 컴포넌트에 하나씩 적용
     MeshComponent->RegisterComponent();
 
     MeshComponent->SetStaticMesh(Data.Mesh);
@@ -84,16 +80,7 @@ UStaticMeshComponent* UAccessoryComponent::CreateAccessory(const FAccessoryData&
     return MeshComponent;
 }
 
-USkeletalMeshComponent* UAccessoryComponent::GetCharacterMesh() const
-{
-    APlayerCharacter* PCh = Cast<APlayerCharacter>(GetOwner());
-
-    if (!PCh)
-        return nullptr;
-
-    return PCh->GetMesh();
-}
-
+//Slot 이름을 대응되는 Skeletal Mesh Socket으로 변환
 FName UAccessoryComponent::GetSocketName(EAccessorySlot Slot) const
 {
     switch (Slot)
@@ -115,4 +102,14 @@ FName UAccessoryComponent::GetSocketName(EAccessorySlot Slot) const
     }
 
     return NAME_None;
+}
+
+USkeletalMeshComponent* UAccessoryComponent::GetCharacterMesh() const
+{
+    APlayerCharacter* PCh = Cast<APlayerCharacter>(GetOwner());
+
+    if (!PCh)
+        return nullptr;
+
+    return PCh->GetMesh();
 }
