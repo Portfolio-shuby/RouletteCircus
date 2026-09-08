@@ -15,7 +15,9 @@ Client에서 발생한 사격 요청을 Server에서 처리하고, Server에서 
 [Architecture](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Document/Diagrams/Multiplayer%20Synchronization%20Architecture.png)
 
 ## **Implementation**
+[PlayerHandState.cpp](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Multiplayer%20Synchronization/PlayerHandState.cpp)
 
+[PlayerTurnController.cpp](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Multiplayer%20Synchronization/PlayerTurnController.cpp)
 
 ## **Result**
 
