@@ -1,73 +1,30 @@
-# :pushpin: RoulettCircus
-게임 플레이 영상
->https://youtu.be/2mzn632va5A?si=5DiZEVxzrdFhC4Hl
+# **턴 진행 흐름 관리**
+## **Problem**
 
-</br>
+RouletteCircus의 한 턴은 단순히 플레이어가 한 번 행동하고 끝나는 구조가 아닙니다.
+사격 결과에 따라 카드 획득, Keyword 변화, 사망 등의 추가 Gameplay가 발생하며, 모든 결과가 처리된 이후에 다음 플레이어의 턴으로 전환되어야 했습니다.
+각 Gameplay Event에서 직접 다음 턴을 시작하도록 구현할 경우, 사격 결과가 완전히 처리되기 전에 턴이 종료되거나 여러 경로에서 Turn End가 중복 호출될 가능성이 있었습니다.
 
-## 프로젝트 정보
-### **제작 기간**
->2025.06 ~ Present
+## **Goal**
 
-### **참여 인원**
->프로그래머 : 3명   
->그래픽 디자이너 : 2명
+하나의 턴에서 발생하는 Gameplay Event와 턴 종료 처리를 분리하고, **현재 턴의 모든 결과가 처리된 이후 다음 플레이어로 안전하게 전환되는 Turn Flow를 구현**하는 것을 목표로 하였습니다.
 
-### **출시**
->2026.06 Steam/Stove Ealry Access 출시   
->현재 정식 출시 대비 개발 진행 중
+## **Architecture**
+[Architecture](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Document/Diagrams/Accessory%20System%20Architecture.png)
 
-[Steam](https://store.steampowered.com/app/3822040/RouletteCircus/) / [Stove](https://store.onstove.com/ko/games/101584)
+## **Implementation**
+[AccessoryComponent.cpp](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Accessory%20System/AccessoryComponent.cpp)
 
-</br>
+[AccessoryComponent.h](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Accessory%20System/AccessoryComponent.h)
 
-## 개요
->Roulette Circus는 고전 러시안 룰렛 게임을 기반으로, 다양한 전략과 심리전 요소를 결합한 멀티플레이 PC 게임입니다. 이 게임은 4명의 플레이어가 턴을 번갈아가며 변형된 러시안 룰렛 규칙을 따라 게임을 진행하며, 심리전과 전략적 판단을 통해 생존을 목표로하는 독특한 룰을 제공합니다.
-</br>
+[AccessoryTypes.h](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Accessory%20System/AccessoryTypes.h)
 
-## 담당 업무
-### **Gameplay**
-- 플레이어 행동 시스템 설계 및 구현
-- Enhanced Input을 활용한 플레이어 입력 및 단축키 기반 행동 처리
-- 카드 획득, 사용, 효과 적용 등의 카드 시스템 구현
-- 플레이어 간 사격 및 피격에 따른 로직 구현
-- 사격 결과에 따른 플레이어 상태(피격, 사망 등) 및 애니메이션 연동
-- 플레이어 행동과 애니메이션 Blueprint(ABP) 연동
-- 플레이어 감정 표현을 위한 Emote System 구현
-- 캐릭터 스킨 변경 시스템 구현
+## **Result**
 
-### **Multiplayer**
-- Unreal Engine의 Listen Server 네트워크 환경을 기반으로 Multiplayer Gameplay 구현
-- 플레이어 행동 및 상태의 네트워크 동기화
-- 상황에 따른 Server RPC / Multicast RPC / Replication 적용
-- 사격 및 피격 결과의 클라이언트 동기화
-- 멀티 플레이 환경에서의 Logic 및 Animation 동기화
+**사격 결과와 Turn End를 분리하여, 하나의 턴에서 발생하는 여러 Gameplay Event가 모두 처리된 이후 다음 턴으로 전환되는 Turn Flow를 구현하였습니다.**
 
-### **Audio System**
-- 게임 플레이 상황에 따른 사운드 재생 시스템 구현
-    - 사격 효과음, 피격 효과음, 배경음, 환경음 등
-- 사운드를 그룹 단위로 관리하여 게임 내 설정에서 사운드 카테고리를 개별적으로 조절 가능하도록 구현
+Server_CalculateShootingResults()에서 사격 결과에 따른 카드 및 Keyword를 먼저 정산하고, 이후 EndMyTurn()에서 현재 턴의 상태 초기화, Keyword 처리, Reload, 다음 플레이어 탐색을 수행하도록 역할을 분리하였습니다.
 
-### **Game Design**
-- 게임 핵심 Gameplay 및 규칙 설계
-- 카드 시스템 및 플레이어 행동과 관련된 Gameplay 기획
-- Multiplayer Gameplay를 고려한 게임 규칙 및 시스템 설계
+다음 플레이어 탐색 과정에서는 사망한 플레이어를 자동으로 제외하고 Player List를 순환하도록 구현하여, 최대 4명의 플레이어가 참여하는 상황에서도 일관된 Turn Flow를 유지하도록 하였습니다.
 
-### **Team Leadership**
-- 팀장으로서 5인 팀의 개발 방향 및 작업 조율
-- 기획과 프로그래밍 사이의 요구사항 조율
-- 프로젝트 진행 과정에서 발생하는 기술적 문제 해결 및 의사 결정
-</br>
-
-## 기술 스택
-- Unreal Engine
-- C++
-- Git
-</br>
-
-## 주요 기술 구현
-- 턴 진행 흐름 관리
-- 멀티플레이 동기화
-- 장신구 장착 시스템
-
-</br>
-
+최종적으로 개별 Player의 턴 종료 처리는 PlayerTurnController에서 수행하고, 전체적인 Turn 전환은 GameMode에 위임하여 **Gameplay 처리와 전체 게임의 Turn 관리 책임을 분리하였습니다.**
