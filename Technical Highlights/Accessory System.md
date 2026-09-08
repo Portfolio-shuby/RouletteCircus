@@ -1,73 +1,29 @@
-# :pushpin: RoulettCircus
-게임 플레이 영상
->https://youtu.be/2mzn632va5A?si=5DiZEVxzrdFhC4Hl
+## **Problem**
 
-</br>
+캐릭터에게 장착 가능한 장신구 종류가 증가하면서 장신구마다 Component를 미리 구성하는 방식은 캐릭터의 Component 구조를 복잡하게 만들고, 새로운 장신구 추가 시 코드 수정이 필요한 문제가 있었습니다.
 
-## 프로젝트 정보
-### **제작 기간**
->2025.06 ~ Present
+## **Goal**
 
-### **참여 인원**
->프로그래머 : 3명   
->그래픽 디자이너 : 2명
+장신구를 장착할 때 필요한 Component를 동적으로 생성하고, 장착에 필요한 정보를 DataTable로 분리하여 데이터 추가만으로 새로운 장신구를 적용할 수 있는 확장 가능한 구조를 구현하는 것을 목표로 했습니다.
 
-### **출시**
->2026.06 Steam/Stove Ealry Access 출시   
->현재 정식 출시 대비 개발 진행 중
+## **Architecture**
+[Architecture](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Document/Diagrams/Accessory%20System%20Architecture.png)
 
-[Steam](https://store.steampowered.com/app/3822040/RouletteCircus/) / [Stove](https://store.onstove.com/ko/games/101584)
+## **Implementation**
+[AccessoryComponent.cpp](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Accessory%20System/AccessoryComponent.cpp)
 
-</br>
+[AccessoryComponent.h](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Accessory%20System/AccessoryComponent.h)
 
-## 개요
->Roulette Circus는 고전 러시안 룰렛 게임을 기반으로, 다양한 전략과 심리전 요소를 결합한 멀티플레이 PC 게임입니다. 이 게임은 4명의 플레이어가 턴을 번갈아가며 변형된 러시안 룰렛 규칙을 따라 게임을 진행하며, 심리전과 전략적 판단을 통해 생존을 목표로하는 독특한 룰을 제공합니다.
-</br>
+[AccessoryTypes.h](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Accessory%20System/AccessoryTypes.h)
 
-## 담당 업무
-### **Gameplay**
-- 플레이어 행동 시스템 설계 및 구현
-- Enhanced Input을 활용한 플레이어 입력 및 단축키 기반 행동 처리
-- 카드 획득, 사용, 효과 적용 등의 카드 시스템 구현
-- 플레이어 간 사격 및 피격에 따른 로직 구현
-- 사격 결과에 따른 플레이어 상태(피격, 사망 등) 및 애니메이션 연동
-- 플레이어 행동과 애니메이션 Blueprint(ABP) 연동
-- 플레이어 감정 표현을 위한 Emote System 구현
-- 캐릭터 스킨 변경 시스템 구현
+## **DataTable**
 
-### **Multiplayer**
-- Unreal Engine의 Listen Server 네트워크 환경을 기반으로 Multiplayer Gameplay 구현
-- 플레이어 행동 및 상태의 네트워크 동기화
-- 상황에 따른 Server RPC / Multicast RPC / Replication 적용
-- 사격 및 피격 결과의 클라이언트 동기화
-- 멀티 플레이 환경에서의 Logic 및 Animation 동기화
+!image.png
 
-### **Audio System**
-- 게임 플레이 상황에 따른 사운드 재생 시스템 구현
-    - 사격 효과음, 피격 효과음, 배경음, 환경음 등
-- 사운드를 그룹 단위로 관리하여 게임 내 설정에서 사운드 카테고리를 개별적으로 조절 가능하도록 구현
+## **Result**
 
-### **Game Design**
-- 게임 핵심 Gameplay 및 규칙 설계
-- 카드 시스템 및 플레이어 행동과 관련된 Gameplay 기획
-- Multiplayer Gameplay를 고려한 게임 규칙 및 시스템 설계
+장신구를 장착할 때 필요한 Mesh, Material, Transform 등의 정보를 DataTable에서 가져와 런타임에 Component를 생성하고 캐릭터의 해당 Socket에 Attach하도록 구현하였습니다.
 
-### **Team Leadership**
-- 팀장으로서 5인 팀의 개발 방향 및 작업 조율
-- 기획과 프로그래밍 사이의 요구사항 조율
-- 프로젝트 진행 과정에서 발생하는 기술적 문제 해결 및 의사 결정
-</br>
+장신구 별 Component를 사전에 구성할 필요가 없으며, 새로운 장신구를 추가할 때 DataTable에 데이터를 추가하는 것만으로 동일한 시스템을 사용할 수 있도록 구성했습니다.
 
-## 기술 스택
-- Unreal Engine
-- C++
-- Git
-</br>
-
-## 주요 기술 구현
-- 턴 진행 흐름 관리
-- 멀티플레이 동기화
-- 장신구 장착 시스템
-
-</br>
-
+또한 UActorComponent 기반으로 기능을 분리하여 캐릭터의 기존 Logic과 장신구 시스템을 독립적으로 관리할 수 있도록 했습니다.
