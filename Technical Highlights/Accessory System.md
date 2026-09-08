@@ -17,8 +17,7 @@
 [AccessoryTypes.h](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Accessory%20System/AccessoryTypes.h)
 
 ## **DataTable**
-
-!image.png
+[DataTable](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Document/Screenshots/AccessorySystem%20DataTable.png)
 
 ## **Result**
 
