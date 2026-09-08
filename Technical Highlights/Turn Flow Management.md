@@ -10,7 +10,7 @@ RouletteCircus의 한 턴은 단순히 플레이어가 한 번 행동하고 끝�
 하나의 턴에서 발생하는 Gameplay Event와 턴 종료 처리를 분리하고, **현재 턴의 모든 결과가 처리된 이후 다음 플레이어로 안전하게 전환되는 Turn Flow를 구현**하는 것을 목표로 하였습니다.
 
 ## **Architecture**
-[Architecture](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Document/Diagrams/Trun%20Flow%20Management%20Acrchitecture.png)
+[Architecture](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Document/Diagrams/Turn%20Flow%20Management%20Acrchitecture.png)
 
 ## **Implementation**
 [PlayerGameMode.cpp](https://github.com/Portfolio-shuby/RouletteCircus/blob/main/Source/Turn%20Flow%20Management/PlayerGameMode.cpp)
