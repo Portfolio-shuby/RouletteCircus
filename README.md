@@ -16,9 +16,7 @@
 >2026.06 Steam/Stove Ealry Access 출시   
 >현재 정식 출시 대비 개발 진행 중
 
-[Steam](https://app.notion.com/p/taesu-jeong-portfolio/3d3a31b2aca680f2b892fb3700a339c8?source=copy_link#3d3a31b2aca680db84aec28aea3ffcae)
-
-[Stove](https://app.notion.com/p/taesu-jeong-portfolio/3d3a31b2aca680f2b892fb3700a339c8?source=copy_link#3d3a31b2aca6803db645e645ce3c7393)
+[Steam](https://app.notion.com/p/taesu-jeong-portfolio/3d3a31b2aca680f2b892fb3700a339c8?source=copy_link#3d3a31b2aca680db84aec28aea3ffcae) / [Stove](https://app.notion.com/p/taesu-jeong-portfolio/3d3a31b2aca680f2b892fb3700a339c8?source=copy_link#3d3a31b2aca6803db645e645ce3c7393)
 
 </br>
 
