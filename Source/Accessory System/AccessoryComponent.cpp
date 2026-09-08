@@ -101,7 +101,7 @@ FName UAccessoryComponent::GetSocketName(EAccessorySlot Slot) const
     case EAccessorySlot::LeftFinger:
         return TEXT("RingSocket"); 
     
-    /*case EAccessorySlot::Head:
+    case EAccessorySlot::Head:
         return TEXT("HeadSocket");
 
     case EAccessorySlot::Face:
@@ -111,7 +111,7 @@ FName UAccessoryComponent::GetSocketName(EAccessorySlot Slot) const
         return TEXT("Finger_R");    
 
     case EAccessorySlot::Neck:
-        return TEXT("NeckSocket");*/
+        return TEXT("NeckSocket");
     }
 
     return NAME_None;
