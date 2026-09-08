@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "PlayerTurnController.h"
 #include "PlayerGameMode.h"
@@ -19,8 +17,10 @@
 #include "Components/StaticMeshComponent.h"
 #include "Data/PointManager.h"
 
+//사격 판정을 최종 계산하는 Server_BlockBullet()에서 조건에 따라 턴 종료
 void APlayerTurnController::Server_BlockBullet_Implementation(APlayerHandState* Target, int32 bReflected)
 {
+	//방어 성공 + 반사
 	if (!bCanBlock)
 	{
 		if (Target == PS || bReflected % 2 == 1)
@@ -44,6 +44,7 @@ void APlayerTurnController::Server_BlockBullet_Implementation(APlayerHandState* 
 		}
 	}
 
+	//방어 실패, 일반적인 턴 종료
 	if (bReflected == 0 && !bIsSuicide)
 	{
 		ClickCount++;
@@ -64,6 +65,7 @@ void APlayerTurnController::Server_BlockBullet_Implementation(APlayerHandState* 
 	}
 }
 
+//턴의 진행 결과에 대한 최종적인 정산을 한 뒤, EndMyTurn()을 실행하여 안정적인 턴 전환
 void APlayerTurnController::Server_CalculateShootingResults_Implementation()
 {
 	GetWorld()->GetTimerManager().SetTimer(
@@ -73,6 +75,7 @@ void APlayerTurnController::Server_CalculateShootingResults_Implementation()
 	);
 }
 
+//실제 턴 종료를 담당하는 EndMyTurn()에서 State 초기화, 다음 플레이어 탐색, 다음 턴 시작 전 작업 처리 등을 진행
 void APlayerTurnController::EndMyTurn()
 {
 	Server_SetPhaseData(0, false, false, false, nullptr, false, 0);
@@ -87,6 +90,7 @@ void APlayerTurnController::EndMyTurn()
 
 		int32 PlayerNum = GM->PlayerList.Num();
 
+		//다른 플레이어들 중 사망하지 않은 다음 번호의 플레이어 탐색
 		for (int i = 1; i < PlayerNum; i++)
 		{
 			APlayerTurnController* TmpNextPC = GM->PlayerList[(OwnNum + i) % PlayerNum];
@@ -109,6 +113,7 @@ void APlayerTurnController::EndMyTurn()
 		if (!IsValid(NextPC))
 			return;
 
+		//다음 플레이어의 턴 시작 전 몇 가지 전처리 과정
 		if (IsValid(NextPC->RldM))
 			NextPC->RldM->Server_RunMachine(true);
 
