@@ -23,9 +23,11 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
+	//장신구 데이터가 저장된 DataTable
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Accessory")
     UDataTable* AccessoryTable;
 
+	//현재 장착된 장신구들을 (Slot, 장신구) 형태로 저장하는 Map
     UPROPERTY()
     TMap<EAccessorySlot, FEquippedAccessory> EquippedAccessories;
 
