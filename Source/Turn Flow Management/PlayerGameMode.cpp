@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "PlayerGameMode.h"
 #include "GameModes/RC_GameInstance.h"
@@ -10,14 +8,11 @@
 
 void APlayerGameMode::StartTurn()
 {
-	UE_LOG(LogTemp, Warning, TEXT("---------- Start Turn %d ----------"), CurrentTurnIndex);
-
 	Turns++;
 
 	if (Turns == 1)
 	{
 		CurrentTurnIndex = FMath::RandRange(0, PlayerList.Num() - 1);
-		//CurrentTurnIndex = 0;
 	}
 
 	APlayerTurnController* CurrentPC = PlayerList[CurrentTurnIndex];
@@ -53,8 +48,6 @@ void APlayerGameMode::EndTurn()
 
 	while (PlayerList[CurrentTurnIndex] == nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("GM EndTurn %d Nobody"), CurrentTurnIndex);
-
 		CurrentTurnIndex = (CurrentTurnIndex + 1) % PlayerList.Num();
 	}
 
