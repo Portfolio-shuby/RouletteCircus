@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 
 #include "PlayerHandState.h"
 #include "PlayerTurnController.h"
@@ -9,6 +7,7 @@
 #include "../AI/AIGameMode.h"
 #include "TimerManager.h"
 
+//변수 Replicate 설정
 void APlayerHandState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
@@ -16,6 +15,7 @@ void APlayerHandState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& O
 	DOREPLIFETIME(APlayerHandState, Life);
 }
 
+//체력 회복, 감소 등에 따라 Life 변수 수정
 void APlayerHandState::UpdateLife_Implementation(int32 Num)
 {
 	Life = FMath::Clamp(Life - 1, 0, MaxLife);
@@ -26,6 +26,7 @@ void APlayerHandState::UpdateLife_Implementation(int32 Num)
 	}
 }
 
+//Life 변수의 Server에서의 상태 변경이 Client에 동기화
 void APlayerHandState::OnRep_Life()
 {
 	AGameStateBase* CurrentGameState = GetWorld()->GetGameState();
